@@ -1,11 +1,19 @@
 <template>
     <div class="container">
-        <h2 class="text-centere mt-5">Todo App</h2>
+        <h2 class="text-center mt-5">Todo App
+             
+        </h2>
 
          <!-- input -->
         <div class="d-flex">
             <input v-model="task" type="text" placeholder="Enter Task" class="form-control">
-            <button @click="submitTask" class="btn btn-success"><i class="fa fa-plus"></i></button>
+            <button @click="submitTask" 
+            :class="{'btn btn-success': this.update==false, 
+                     'btn btn-warning': this.update==true}">
+            <i :class="{ 'fa fa-plus': this.update==false,
+                         'fa fa-pen': this.update==true }"></i>
+            
+            </button>
         </div>
 
         <!-- task table -->
@@ -38,7 +46,7 @@
                     </td>
                     <td>
                         <div @click="editTask(index)" class="text-center">
-                            <i class="fa fa-pen pointer" style="color:blue"></i>
+                            <i class="fa fa-pen pointer" style="color:orange"></i>
                         </div>
                     </td>
                     <td>
@@ -61,7 +69,9 @@ export default {
       data() {
       return {
           task: '',
+          theme: '',
           editedTask: null,
+          update: false,
           availableStatuses: ['to-do', 'in-progress', 'finished'], 
           tasks: [
               {
@@ -75,10 +85,12 @@ export default {
           ]
       }
     },
+    
  
 
     methods: {
         submitTask(){
+            
             if(this.task.length === 0) return;
 
             if(this.editedTask === null){
@@ -91,6 +103,7 @@ export default {
                 this.editedTask = null;
             }
             this.task = '';
+            this.update = false;
         },
 
         changeStatus(index){
@@ -106,17 +119,32 @@ export default {
         editTask(index){
             this.task = this.tasks[index].name;
             this.editedTask = index;
+            this.update = true;
         },
 
 
         deleteTask(index){
+            if(confirm('Are you sure?')){
             this.tasks.splice(index,1);
+            }   
         },
-    }
+    },
+    
+   
 }
 </script>
 
 <style>
+
+[data-theme="darkMode"] {
+    /* Variables for dark mode */
+    background-color: black;
+    color: white;   
+}
+.example {
+    background-color: var(black);
+    color: var(white);
+}
 .pointer{
     cursor: pointer;
 }
