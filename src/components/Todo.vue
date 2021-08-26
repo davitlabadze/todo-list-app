@@ -1,8 +1,6 @@
 <template>
     <div class="container">
-        <h2 class="text-center mt-5">Todo App
-             
-        </h2>
+        <h2 class="text-center mt-5">Todo App</h2>
 
          <!-- input -->
         <div class="d-flex">
@@ -19,15 +17,15 @@
         <!-- task table -->
 
         <table class="table mt-5">
-            <thead>
+            <!-- <thead>
                 <tr>
                 <th scope="col">task</th>
                 <th scope="col">status</th>
                 <th scope="col" class="text-center">#</th>
                 <th scope="col" class="text-center">#</th>
                 </tr>
-            </thead>
-            <tbody>
+            </thead> -->
+            <tbody > 
                 <tr v-for="(task,index) in this.tasks" :key="index">
                     <th>
                         <span :class="{'finished': task.status === 'finished'}">
@@ -81,6 +79,10 @@ export default {
               {
                   name: 'test2',
                   status: 'in-progress'
+              },
+              {
+                  name: 'test3',
+                  status: 'finished'
               }
           ]
       }
@@ -136,20 +138,12 @@ export default {
 
 <style>
 
-[data-theme="darkMode"] {
-    /* Variables for dark mode */
-    background-color: black;
-    color: white;   
-}
-.example {
-    background-color: var(black);
-    color: var(white);
-}
 .pointer{
     cursor: pointer;
 }
 
 .finished {
     text-decoration: line-through;
+    opacity: .5;
 }
 </style>
